@@ -1,66 +1,25 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Énoncé
+## TP1
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-> Avoir une view pour gérer les erreurs http 404. (Pas besoin de la traduire)
+-> Avoir une view pour gérer les erreurs http 500. (Pas besoin de la traduire)
+-> Avoir une entrée de type "debug" dans le log pour chaque route exécutée. On veut le message "Route <url> demandée". (voir Logging - Laravel - The PHP Framework For Web Artisans)
+-> Ajouter un test d'intégration (Feature) pour chacune des routes qui test:
+ a) Le status http (200, 302, ...)
+ b) Valide chaque variables passées aux vues.
+-> Ajouter une route "/{lang}/erreur" qui lance un exception de votre choix.
+-> Ajouter un gestionnaire d'erreur qui capte votre exception et qui retourne une "response" ou une vue.
+-> Vous devez utilisée le système component de Blade pour faire votre interface.
+-> Pour la route equipe, vous devez créer une classe Modèle Equipe, pour représenter un membre de l'équipe, qui implémente les méthodes suivantes:
+a) findAll() (retourne un tableau d'instance de classe Equipe)
+b) findOne($id) (retourne une instance de classe Equipe en fonction de l'id)
+c) findRandom() (retourne une instance de classe Equipe choisie au hasard)
+-­­> La classe Equipe doit avoir les propriété suivantes: id, nom, prenom, bio, poste.
+-­­> La route équipe doit présenter une liste des membres en affichant le nom et le poste uniquement.
+-> Faire une nouvelle route '/{lang}/equipe/{id}' qui va afficher toutes les propriétés d'un membre en particulier.
+-­> Faire une classe de test unitaire (Unit) pour chaque méthode de la classe Equipe. On test au minimum les 3 méthodes: on a donc un minimum de 3 méthodes de test. 
+-­> On veut aussi avoir l'information sur le modèle Équipe en format json. On va donc ajouter des routes dans le fichier api.php (supprimer la route existante du fichier).
+1) /api/{lang}/equipe : Retourne tous les membres dans un tableau json
+2) /api/{lang}/equipe/{id} : Retourne les informations sur un membre en particulier en objet JSON.
+3) /api/{lang}/equipe/random : Retourne la même chose que la route par id, mais retournant un modèle au hasard.
+-­> Écrire des tests d'intégration (Feature) qui teste le status (200) des routes de l'api ainsi que les valeurs de retours (voir HTTP Tests - Laravel - The PHP Framework For Web Artisans)

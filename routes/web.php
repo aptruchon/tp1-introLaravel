@@ -25,17 +25,6 @@ $langValidator = '^(fr|en)$';
 Route::get('/', function (Request $request) {
     // Entré de type débug pour le log
     Log::debug("Route \"" .$request->getRequestUri(). "\" demandée");
-
-    /*
-    try {
-        throw new Exception('Test ceci est une erreur');
-    } catch (Throwable $ex) {
-        // ignore
-    }
-*/
-    //throw new InvalidArgumentException('allo');
-    //throw new Exception('test');
-
     
     return redirect('/fr/accueil');
 });
@@ -112,9 +101,24 @@ Route::get('/{lang}/equipe', function ($lang, Request $request) {
     ]);
 })->where('lang', $langValidator);
 
-// Je triche ici car sans id{id}, la route "/{lang}/equipe/random" entre dans la route id
-// Même si je valide le 3ieme parametre en temps que chiffre, si je redirige, je vais repasser ici. Loop infini
-Route::get('/{lang}/equipe/id{id}', function ($lang, $id, Request $request) { // Controller + Route
+
+Route::get('/{lang}/equipe/random', function ($lang, Request $request) { // Controller + Route
+    // Entré de type débug pour le log
+    Log::debug("Route \"" .$request->getRequestUri(). "\" demandée");
+    
+    App::setLocale($lang);
+    $member = Equipe::findRandom();          // Model
+    
+    if (!$member) {                           // Validation du Model
+        abort(404);                           // Controller
+    }
+    return view('membres.one', [              // View
+        'member' => $member                   // View
+    ]);                                       // View
+})->where('lang', $langValidator);            // Controller + Route
+
+
+Route::get('/{lang}/equipe/{id}', function ($lang, $id, Request $request) { // Controller + Route
     // Entré de type débug pour le log
     Log::debug("Route \"" .$request->getRequestUri(). "\" demandée");
     App::setLocale($lang);
@@ -129,22 +133,6 @@ Route::get('/{lang}/equipe/id{id}', function ($lang, $id, Request $request) { //
         'member' => $member                   // View
     ]);                                       // View
 })->where('lang', $langValidator);            // Controller + Route
-
-Route::get('/{lang}/equipe/random', function ($lang, Request $request) { // Controller + Route
-    // Entré de type débug pour le log
-    Log::debug("Route \"" .$request->getRequestUri(). "\" demandée");
-
-    App::setLocale($lang);
-    $member = Equipe::findRandom();          // Model
-
-    if (!$member) {                           // Validation du Model
-        abort(404);                           // Controller
-    }
-    return view('membres.one', [              // View
-        'member' => $member                   // View
-    ]);                                       // View
-})->where('lang', $langValidator);            // Controller + Route
-
 
 
 
